@@ -241,6 +241,18 @@ func resourceAliCloudVpcVpcCreate(d *schema.ResourceData, meta interface{}) erro
 		query["RegionId"] = client.RegionId
 		request["ClientToken"] = buildClientToken(action)
 
+		if v, ok := d.GetOk("name"); ok || d.HasChange("name") {
+			request["VpcName"] = v
+		}
+		if v, ok := d.GetOk("vpc_name"); ok {
+			request["VpcName"] = v
+		}
+		if v, ok := d.GetOk("cidr_block"); ok {
+			request["CidrBlock"] = v
+		}
+		if v, ok := d.GetOk("description"); ok {
+			request["Description"] = v
+		}
 		if v, ok := d.GetOk("ipv6_cidr_block"); ok {
 			request["Ipv6CidrBlock"] = v
 		}
